@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!--configuration实例来构建sqlsessionfactory-->
+<!--里面的配置有顺序-->
+<configuration>
+    <environments default="development">
+        <environment id="development">
+            <!-- type="JDBC" 代表使用JDBC的提交和回滚来管理事务 -->
+            <transactionManager type="JDBC"/>
+            <!-- mybatis提供了3种数据源类型，分别是：POOLED,UNPOOLED,JNDI -->
+            <!-- POOLED 表示支持JDBC数据源连接池 -->
+            <!-- UNPOOLED 表示不支持数据源连接池 -->
+            <!-- JNDI 表示支持外部数据源连接池 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/migo2"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="cn/lxj/bookmybatis/chapter1/mapper/RoleMapper.xml"/>
+    </mappers>
+</configuration>
