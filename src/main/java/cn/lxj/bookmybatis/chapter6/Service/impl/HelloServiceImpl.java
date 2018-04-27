@@ -1,0 +1,15 @@
+package cn.lxj.bookmybatis.chapter6.Service.impl;
+
+import cn.lxj.bookmybatis.chapter6.Service.HelloService;
+
+/**
+ * HelloServiceImpl
+ * description TODO
+ * create by lxj 2018/4/27
+ **/
+public class HelloServiceImpl implements HelloService{
+    @Override
+    public void sayHello(String name) {
+        System.out.println("hello: " + name);
+    }
+}
