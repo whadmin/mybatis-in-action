@@ -32,7 +32,7 @@ public class HelloServiceProxy implements InvocationHandler {
         // 反射方法前调用
         System.out.println("我准备说hello。");
         // 执行方法，相当于调用HelloServiceImpl类的sayHello方法
-        method.invoke(target,args);
+        result = method.invoke(target, args);
         // 反射方法调用后
         System.out.println("我说过Hello了");
         return result;

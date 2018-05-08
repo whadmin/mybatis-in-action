@@ -2,6 +2,7 @@ package cn.lxj.bookmybatis.chapter6.test;
 
 import cn.lxj.bookmybatis.chapter6.Service.HelloService;
 import cn.lxj.bookmybatis.chapter6.Service.impl.HelloServiceImpl;
+import cn.lxj.bookmybatis.chapter6.Service.proxy.HelloServiceCgLib;
 import cn.lxj.bookmybatis.chapter6.Service.proxy.HelloServiceProxy;
 
 /**
@@ -11,8 +12,15 @@ import cn.lxj.bookmybatis.chapter6.Service.proxy.HelloServiceProxy;
  **/
 public class TestProxy {
     public static void main(String[] args) {
-        HelloServiceProxy HelloHandler = new HelloServiceProxy();
-        HelloService proxy = (HelloService) HelloHandler.bind(new HelloServiceImpl());
-        proxy.sayHello("lisi");
+        System.out.println("********测试jdk动态代理*************");
+        // 实例化代理类
+        HelloServiceProxy HelloHandler1 = new HelloServiceProxy();
+        // 代理类绑定哪个功能之下
+        HelloService proxy1 = (HelloService) HelloHandler1.bind(new HelloServiceImpl());
+        proxy1.sayHello("lisi");
+        System.out.println("********测试cglib动态代理*************");
+        HelloServiceCgLib helloServiceCgLib = new HelloServiceCgLib();
+        HelloService target = (HelloService)helloServiceCgLib.getTarget(new HelloServiceImpl());
+        target.sayHello("daxiong");
     }
 }

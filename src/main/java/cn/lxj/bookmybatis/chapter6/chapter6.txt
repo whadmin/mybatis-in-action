@@ -18,6 +18,43 @@ JDK动态代理：
           2.编写代理类，提供绑定和代理方法。
           3.写一个代理类，代理类的要求就是实现InvocationHandler接口的代理方法，当一个对象被绑定后，执行其方法的时候，就会进入到
             代理方法里面去。
-CGLB动态代理：
-    JDK提供的动态代理存在一个缺陷，就是你必须提供接口才可以使用，为了克服这个缺陷，我们可以使用开源框架--CGLB，是一种流行的动态代理。
+    主要方法个关键字：
+        1.代理类绑定的时候返回的代理对象，第一个类加载器，第二个是获取目标类的实现类的接口，第三个是代理类
+        Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), this);
+        2.代理类需要实现的代理方法，第一个参数是
+        invoke(Object proxy, Method method, Object[] args)
+CGLIB动态代理：
+    JDK提供的动态代理存在一个缺陷，就是你必须提供接口才可以使用，为了克服这个缺陷，我们可以使用开源框架--CGLIB，是一种流行的动态代理。
+    MyBatis中，通常在使用延迟加载的时候才会用到CGLIB动态代理。
+    MyBatis在使用Mapper的时候，也是使用了动态代理，并在调用方法前后加入了我们想要的东西。
+6.2 构建SqlSessionFactory过程
+    SqlSessionFactory是MyBatis的核心类之一，其最重要的功能就是提供创建MyBatis的核心接口SqlSession，所以我们需要先创建SqlSessionFactory，
+    为此我们需要提供配置文件和相关的参数。MyBatis采用构造的方式去创建SqlSessionFactory，使用SqlSessionFactoryBuilder去构建。
+    第一步：
+        使用org.apache.ibatis.builder.xml.XMLConfigBuilder解析配置的XML文件，读出配置参数，并将读取的数据存入这个org.apache.ibatis.session
+        .Configuration类中，MyBatis几乎所有的配置都是存在这里的。
+    第二步：
+        使用Configuration对象去创建SqlSessionFactory。SqlSessionFactory是一个接口，MyBatis提供了一个默认的实现类，我们一般都会使用它，org.apache.ibatis
+        .session.defaults.DefaultSqlSessionFactory。在大部分情况下我们都没有必要去自己创建新的SqlSessionFactory的实现类。
+    Configuration作用：
+        -读入配置文件，包括基础配置的XML文件和映射器的XML文件。
+        -初始化基础配置，比如MyBatis的别名等，一些重要的类对象，例如，插件、映射器、ObjectFactory和typeHandler对象。
+        -提供单例，为后续创建SessionFactory服务并且提供配置的参数
+        -执行一些重要的对象方法，初始化配置信息
+    首先MyBatis会读取出所有XML配置的信息，然后，将这些信息保存到Configuration类的单例中，做如下的初始化：
+        properties  全局参数
+        settings    设置
+        typeAliases 别名
+        typeHandler 类型处理器
+        ObjectFactory   对象
+        plugin  插件
+        environment 环境
+        DataBaseIdProvider  数据库标识
+        Mapper  映射器
+
+    映射器的内部组成：（三部分）
+    MappedStatement——保存映射器的节点（insert|select|delete|update）
+        包括SQL、SQL的id、缓存信息、resultMap、parameterType、resultType、languageDriver等配置内容。
+    SqlSource——提供BoundSql的地方，是MappedStatement的一个属性。
+    BoundSql——建立SQL和参数的地方，有三个常用属性：SQL，parameterObject、parameterMappings。
 

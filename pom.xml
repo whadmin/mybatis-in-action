@@ -27,8 +27,9 @@
     <groupId>cn.lxj</groupId>
     <artifactId>book-mybatis</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>pom</packaging>
 
+    <!--mybatis配置文件以及依赖-->
     <dependencies>
         <dependency>
             <groupId>org.mybatis</groupId>
@@ -47,7 +48,36 @@
             <artifactId>log4j</artifactId>
             <version>1.2.14</version>
         </dependency>
-
+        <!--操作Javaj字节码的类库-->
+        <dependency>
+            <groupId>asm</groupId>
+            <artifactId>asm</artifactId>
+            <version>3.3.1</version>
+        </dependency>
+        <!--用来动态集成Java类或实现接口-->
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>2.2.2</version>
+        </dependency>
+        <!--用于通用日志处理-->
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <!--分析、编辑和创建Java字节码的类库-->
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.17.1-GA</version>
+        </dependency>
+        <!--日志系统-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.5</version>
+        </dependency>
     </dependencies>
 
     <build>
